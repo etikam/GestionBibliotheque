@@ -80,7 +80,7 @@ namespace GestionBibliotheque
 
         private void button3_Click(object sender, EventArgs e)
         {
-            F_emprunt_main f = new F_emprunt_main();
+            F_emprunt_emprunter f = new F_emprunt_emprunter();
             f.Show();
             this.Hide();
         }

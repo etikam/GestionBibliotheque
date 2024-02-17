@@ -19,9 +19,9 @@ namespace GestionBibliotheque
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Form1 f = new Form1();
+            
             this.Hide();
-            f.Show();
+           
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -32,6 +32,82 @@ namespace GestionBibliotheque
         private void guna2Panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Fichier images (*.jpg, *.jpeg, *.png)| *.jpg;*.jpeg;*.png";
+            if(openFileDialog.ShowDialog()== DialogResult.OK)
+            {
+                tb_image.ImageLocation = openFileDialog.FileName;
+            }
+        }
+
+        private void guna2TextBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            bool erreur = false;
+            String message_erreur = "";
+            if (tb_nom.Text.Length == 0)
+            {
+                erreur = true;
+                message_erreur += "\n Aucun nom saisi";
+            }
+
+            if (tb_prenoms.Text.Length == 0)
+            {
+                erreur = true;
+                message_erreur += "\n Aucun prenom saisi";
+            }
+
+            if (tb_addresse.Text.Length == 0)
+            {
+                erreur = true;
+                message_erreur += "\n Aucune adresse saisie";
+            }
+
+            if (tb_email.Text.Length == 0)
+            {
+                erreur = true;
+                message_erreur += "\n Aucun Email saisi";
+            }
+
+            if (tb_telephone.Text.Length == 0)
+            {
+                erreur = true;
+                message_erreur += "\n Aucun numero de téléphone saisi";
+            }
+
+            if (tb_image.Location =="")
+            {
+                erreur = true;
+                message_erreur += "\n Aucune image choisie";
+            }
+
+            if (erreur)
+            {
+                MessageBox.Show(message_erreur);
+            }
+            else
+            {
+                DBConnector connexion = new DBConnector();
+                String requete = "INSERT INTO readers(id,nom,prenom,addresse,email,telephone)" +
+                                  "VALUES(NULL,'" + tb_nom.Text + "','" + tb_prenoms.Text + "','" + tb_addresse.Text + "','" + tb_email.Text + "','" + tb_telephone.Text + "')";
+                connexion.Insert(requete);
+
+                tb_nom.Text = "";
+                tb_prenoms.Text = "";
+                tb_addresse.Text = "";
+                tb_email.Text = "";
+                tb_telephone.Text = "";
+
+                MessageBox.Show("Smartphone Enregistré avec Succès");
+            }
         }
     }
 }

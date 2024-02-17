@@ -84,5 +84,29 @@ namespace GestionBibliotheque
             f.Show();
             this.Hide();
         }
+
+        private void guna2CustomGradientPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+
+        }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            F_emprunt_emprunter f_emprunt_emprunter = new F_emprunt_emprunter();
+            f_emprunt_emprunter.Show();
+        }
+
+        private void btn_lecteurs_Click(object sender, EventArgs e)
+        {
+            F_add_reader f_add_reader = new F_add_reader();
+            f_add_reader.Show();
+        }
+
+        private void btn_livres_Click(object sender, EventArgs e)
+        {
+            F_add_book f_add_book = new F_add_book();
+            f_add_book.Show();
+        }
     }
 }

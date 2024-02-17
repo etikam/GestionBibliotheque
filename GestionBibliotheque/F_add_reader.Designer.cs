@@ -53,27 +53,28 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.label17 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.tb_image = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tb_nom = new Guna.UI2.WinForms.Guna2TextBox();
+            this.tb_prenoms = new Guna.UI2.WinForms.Guna2TextBox();
+            this.tb_addresse = new Guna.UI2.WinForms.Guna2TextBox();
+            this.tb_telephone = new Guna.UI2.WinForms.Guna2TextBox();
+            this.tb_email = new Guna.UI2.WinForms.Guna2TextBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_image)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
@@ -400,90 +401,38 @@
             this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.ForeColor = System.Drawing.Color.White;
-            this.button6.Location = new System.Drawing.Point(7, 273);
+            this.button6.Location = new System.Drawing.Point(7, 297);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(520, 35);
             this.button6.TabIndex = 17;
             this.button6.Text = "ENREGISTRER";
             this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.textBox6);
-            this.panel1.Controls.Add(this.textBox4);
-            this.panel1.Controls.Add(this.textBox3);
+            this.panel1.Controls.Add(this.tb_email);
+            this.panel1.Controls.Add(this.tb_telephone);
+            this.panel1.Controls.Add(this.tb_addresse);
+            this.panel1.Controls.Add(this.tb_prenoms);
+            this.panel1.Controls.Add(this.tb_nom);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.tb_image);
             this.panel1.Controls.Add(this.guna2TextBox1);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.button6);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.textBox5);
-            this.panel1.Controls.Add(this.textBox2);
-            this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(12, 63);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(557, 382);
             this.panel1.TabIndex = 14;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(153, 202);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(374, 20);
-            this.textBox6.TabIndex = 22;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(154, 124);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(374, 20);
-            this.textBox4.TabIndex = 21;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(154, 90);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(374, 20);
-            this.textBox3.TabIndex = 20;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(153, 237);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(374, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Inserer l\'image";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(154, 163);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(374, 20);
-            this.textBox5.TabIndex = 1;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(154, 50);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(374, 20);
-            this.textBox2.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(154, 13);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(374, 20);
-            this.textBox1.TabIndex = 1;
             // 
             // label8
             // 
@@ -499,7 +448,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(4, 202);
+            this.label7.Location = new System.Drawing.Point(4, 184);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 17);
             this.label7.TabIndex = 0;
@@ -509,7 +458,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(4, 163);
+            this.label6.Location = new System.Drawing.Point(4, 149);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(101, 17);
             this.label6.TabIndex = 0;
@@ -519,7 +468,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(4, 124);
+            this.label5.Location = new System.Drawing.Point(4, 101);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 17);
             this.label5.TabIndex = 0;
@@ -529,7 +478,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(4, 85);
+            this.label4.Location = new System.Drawing.Point(4, 57);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(94, 17);
             this.label4.TabIndex = 0;
@@ -539,21 +488,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(4, 50);
+            this.label3.Location = new System.Drawing.Point(4, 16);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 17);
             this.label3.TabIndex = 0;
             this.label3.Text = "NOM :";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(4, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(112, 17);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "IDENTIFIANT :";
             // 
             // guna2Panel2
             // 
@@ -580,6 +519,136 @@
             this.label17.TabIndex = 0;
             this.label17.Text = "Formulaire d\'ajout de nouveaux Lecteurs";
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // tb_image
+            // 
+            this.tb_image.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tb_image.ImageRotate = 0F;
+            this.tb_image.Location = new System.Drawing.Point(459, 224);
+            this.tb_image.Name = "tb_image";
+            this.tb_image.Size = new System.Drawing.Size(68, 57);
+            this.tb_image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.tb_image.TabIndex = 23;
+            this.tb_image.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(154, 228);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(299, 35);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Choisir l\'image";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // tb_nom
+            // 
+            this.tb_nom.Animated = true;
+            this.tb_nom.BorderRadius = 5;
+            this.tb_nom.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_nom.DefaultText = "";
+            this.tb_nom.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.tb_nom.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.tb_nom.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tb_nom.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tb_nom.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tb_nom.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tb_nom.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tb_nom.Location = new System.Drawing.Point(154, 8);
+            this.tb_nom.Name = "tb_nom";
+            this.tb_nom.PasswordChar = '\0';
+            this.tb_nom.PlaceholderText = "";
+            this.tb_nom.SelectedText = "";
+            this.tb_nom.Size = new System.Drawing.Size(373, 30);
+            this.tb_nom.TabIndex = 26;
+            // 
+            // tb_prenoms
+            // 
+            this.tb_prenoms.Animated = true;
+            this.tb_prenoms.BorderRadius = 5;
+            this.tb_prenoms.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_prenoms.DefaultText = "";
+            this.tb_prenoms.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.tb_prenoms.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.tb_prenoms.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tb_prenoms.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tb_prenoms.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tb_prenoms.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tb_prenoms.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tb_prenoms.Location = new System.Drawing.Point(154, 50);
+            this.tb_prenoms.Name = "tb_prenoms";
+            this.tb_prenoms.PasswordChar = '\0';
+            this.tb_prenoms.PlaceholderText = "";
+            this.tb_prenoms.SelectedText = "";
+            this.tb_prenoms.Size = new System.Drawing.Size(373, 30);
+            this.tb_prenoms.TabIndex = 27;
+            // 
+            // tb_addresse
+            // 
+            this.tb_addresse.Animated = true;
+            this.tb_addresse.BorderRadius = 5;
+            this.tb_addresse.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_addresse.DefaultText = "";
+            this.tb_addresse.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.tb_addresse.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.tb_addresse.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tb_addresse.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tb_addresse.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tb_addresse.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tb_addresse.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tb_addresse.Location = new System.Drawing.Point(154, 90);
+            this.tb_addresse.Name = "tb_addresse";
+            this.tb_addresse.PasswordChar = '\0';
+            this.tb_addresse.PlaceholderText = "";
+            this.tb_addresse.SelectedText = "";
+            this.tb_addresse.Size = new System.Drawing.Size(373, 30);
+            this.tb_addresse.TabIndex = 28;
+            // 
+            // tb_telephone
+            // 
+            this.tb_telephone.Animated = true;
+            this.tb_telephone.BorderRadius = 5;
+            this.tb_telephone.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_telephone.DefaultText = "";
+            this.tb_telephone.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.tb_telephone.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.tb_telephone.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tb_telephone.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tb_telephone.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tb_telephone.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tb_telephone.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tb_telephone.Location = new System.Drawing.Point(154, 135);
+            this.tb_telephone.Name = "tb_telephone";
+            this.tb_telephone.PasswordChar = '\0';
+            this.tb_telephone.PlaceholderText = "";
+            this.tb_telephone.SelectedText = "";
+            this.tb_telephone.Size = new System.Drawing.Size(373, 30);
+            this.tb_telephone.TabIndex = 29;
+            // 
+            // tb_email
+            // 
+            this.tb_email.Animated = true;
+            this.tb_email.BorderRadius = 5;
+            this.tb_email.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_email.DefaultText = "";
+            this.tb_email.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.tb_email.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.tb_email.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tb_email.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tb_email.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tb_email.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tb_email.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tb_email.Location = new System.Drawing.Point(154, 176);
+            this.tb_email.Name = "tb_email";
+            this.tb_email.PasswordChar = '\0';
+            this.tb_email.PlaceholderText = "";
+            this.tb_email.SelectedText = "";
+            this.tb_email.Size = new System.Drawing.Size(373, 30);
+            this.tb_email.TabIndex = 30;
+            // 
             // F_add_reader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -589,6 +658,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.guna2Panel2);
+            this.MaximizeBox = false;
             this.Name = "F_add_reader";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "F_add_reader";
@@ -600,6 +670,7 @@
             this.panel1.PerformLayout();
             this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tb_image)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -629,22 +700,22 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button button1;
+        private Guna.UI2.WinForms.Guna2PictureBox tb_image;
+        private Guna.UI2.WinForms.Guna2TextBox tb_email;
+        private Guna.UI2.WinForms.Guna2TextBox tb_telephone;
+        private Guna.UI2.WinForms.Guna2TextBox tb_addresse;
+        private Guna.UI2.WinForms.Guna2TextBox tb_prenoms;
+        private Guna.UI2.WinForms.Guna2TextBox tb_nom;
     }
 }

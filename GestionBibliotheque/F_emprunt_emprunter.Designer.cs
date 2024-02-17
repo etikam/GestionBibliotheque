@@ -113,6 +113,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
             this.guna2TabControl1.SuspendLayout();
             this.menu_emprunter.SuspendLayout();
             this.panel_historique.SuspendLayout();
@@ -304,6 +305,7 @@
             // guna2Panel4
             // 
             this.guna2Panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.guna2Panel4.Controls.Add(this.button7);
             this.guna2Panel4.Controls.Add(this.label19);
             this.guna2Panel4.Location = new System.Drawing.Point(1, 6);
             this.guna2Panel4.Name = "guna2Panel4";
@@ -1368,12 +1370,31 @@
             this.label18.TabIndex = 0;
             this.label18.Text = "NOM :";
             // 
+            // button7
+            // 
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button7.AutoSize = true;
+            this.button7.BackColor = System.Drawing.Color.Transparent;
+            this.button7.FlatAppearance.BorderSize = 0;
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.button7.Location = new System.Drawing.Point(781, 3);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(74, 37);
+            this.button7.TabIndex = 5;
+            this.button7.Text = "Sortir";
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // F_emprunt_emprunter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 511);
             this.Controls.Add(this.guna2TabControl1);
+            this.MaximizeBox = false;
             this.Name = "F_emprunt_emprunter";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "                                                                                 " +
@@ -1482,5 +1503,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button button7;
     }
 }

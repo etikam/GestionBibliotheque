@@ -83,7 +83,7 @@ namespace GestionBibliotheque
                 message_erreur += "\n Aucun numero de téléphone saisi";
             }
 
-            if (tb_image.Location =="")
+            if (tb_image == null)
             {
                 erreur = true;
                 message_erreur += "\n Aucune image choisie";
@@ -96,8 +96,8 @@ namespace GestionBibliotheque
             else
             {
                 DBConnector connexion = new DBConnector();
-                String requete = "INSERT INTO readers(id,nom,prenom,addresse,email,telephone)" +
-                                  "VALUES(NULL,'" + tb_nom.Text + "','" + tb_prenoms.Text + "','" + tb_addresse.Text + "','" + tb_email.Text + "','" + tb_telephone.Text + "')";
+                String requete = "INSERT INTO readers(id,nom,prenom,addresse,email,telephone,photo)" +
+                                  "VALUES(NULL,'" + tb_nom.Text + "','" + tb_prenoms.Text + "','" + tb_addresse.Text + "','" + tb_email.Text + "','" + tb_telephone.Text + "','"+ tb_image.ImageLocation+"')";
                 connexion.Insert(requete);
 
                 tb_nom.Text = "";
@@ -105,9 +105,19 @@ namespace GestionBibliotheque
                 tb_addresse.Text = "";
                 tb_email.Text = "";
                 tb_telephone.Text = "";
+                String query = "SELECT * FROM readers;";
+              
+                connexion.Select(query, dataGridView1);
+                MessageBox.Show("Le Lecteur est ajouté avec Succès");
 
-                MessageBox.Show("Smartphone Enregistré avec Succès");
             }
+        }
+
+        private void F_add_reader_Load(object sender, EventArgs e)
+        {
+            String requete = "SELECT * FROM readers;";
+            DBConnector connexion = new DBConnector();
+            connexion.Select(requete, dataGridView1);
         }
     }
 }

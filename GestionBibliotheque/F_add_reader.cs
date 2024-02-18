@@ -99,20 +99,28 @@ namespace GestionBibliotheque
             }
             else
             {
-
-
-
-
-
                 try
                 {
                     byte[] imageBytes = ImageToByteArray(tb_image.Image);
 
                     DBConnector connexion = new DBConnector();
-                    String requete = "INSERT INTO readers(nom,prenom,addresse,email,telephone,photo)" +
-                                      "VALUES(@nom, @prenom, @addresse, @email, @telephone, @photo)";
+                    MySqlCommand cmd = new MySqlCommand();
+                    cmd.Connection = connexion.Connection;
 
-                    MySqlCommand cmd = new MySqlCommand(requete, connexion.Connection);
+                    if (string.IsNullOrEmpty(id_masque.Text))
+                    {
+                        // Insertion d'une nouvelle personne
+                        String requete = "INSERT INTO readers(nom,prenom,addresse,email,telephone,photo) VALUES(@nom, @prenom, @addresse, @email, @telephone, @photo)";
+                        cmd.CommandText = requete;
+                    }
+                    else
+                    {
+                        // Mise à jour d'une personne existante
+                        String requete = "UPDATE readers SET nom = @nom, prenom = @prenom, addresse = @addresse, email = @email, telephone = @telephone, photo = @photo WHERE id = @id";
+                        cmd.CommandText = requete;
+                        cmd.Parameters.AddWithValue("@id", id_masque.Text);
+                    }
+
                     cmd.Parameters.AddWithValue("@nom", tb_nom.Text);
                     cmd.Parameters.AddWithValue("@prenom", tb_prenoms.Text);
                     cmd.Parameters.AddWithValue("@addresse", tb_addresse.Text);
@@ -130,15 +138,16 @@ namespace GestionBibliotheque
                     tb_email.Text = "";
                     tb_telephone.Text = "";
                     tb_image.Image = null;
+                    id_masque.Text = "";
 
-                    String query = "SELECT id,nom,prenom,addresse,email,telephone FROM readers;";
+                    String query = "SELECT id, nom, prenom, addresse, email, telephone FROM readers";
                     connexion.Select(query, dataGridView1);
-
-                    MessageBox.Show("Le Lecteur est ajouté avec Succès");
+                   
+                    MessageBox.Show("Modification Effectuée.");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Une erreur s'est produite lors de l'ajout du lecteur : " + ex.Message);
+                    MessageBox.Show("Une erreur s'est produite lors de l'opération : " + ex.Message);
                 }
             }
         }

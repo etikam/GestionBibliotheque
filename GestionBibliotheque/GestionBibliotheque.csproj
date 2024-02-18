@@ -134,5 +134,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="librarymanagerdb.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ressources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

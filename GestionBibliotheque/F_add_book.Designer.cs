@@ -219,6 +219,7 @@
             this.t_category.Name = "t_category";
             this.t_category.Size = new System.Drawing.Size(515, 36);
             this.t_category.TabIndex = 35;
+            this.t_category.SelectedIndexChanged += new System.EventHandler(this.t_category_SelectedIndexChanged);
             // 
             // id_masque
             // 

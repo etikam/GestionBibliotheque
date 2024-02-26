@@ -366,5 +366,10 @@ namespace GestionBibliotheque
                 MessageBox.Show("Veuillez sélectionner un lecteur à supprimer.");
             }
         }
+
+        private void t_category_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -82,12 +82,14 @@
             // 
             // dataGridView2
             // 
+            this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(9, 546);
             this.dataGridView2.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(1333, 239);
@@ -230,7 +232,7 @@
             this.id_masque.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.id_masque.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.id_masque.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.id_masque.Location = new System.Drawing.Point(68, 324);
+            this.id_masque.Location = new System.Drawing.Point(16, 324);
             this.id_masque.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.id_masque.Name = "id_masque";
             this.id_masque.PasswordChar = '\0';
@@ -417,7 +419,7 @@
             this.guna2Panel2.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel2.Margin = new System.Windows.Forms.Padding(4);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(1349, 85);
+            this.guna2Panel2.Size = new System.Drawing.Size(1349, 62);
             this.guna2Panel2.TabIndex = 13;
             // 
             // button7
@@ -430,10 +432,10 @@
             this.button7.FlatAppearance.BorderSize = 0;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.button7.Location = new System.Drawing.Point(1245, 5);
+            this.button7.Location = new System.Drawing.Point(1230, 4);
             this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(119, 62);
+            this.button7.Size = new System.Drawing.Size(119, 50);
             this.button7.TabIndex = 2;
             this.button7.Text = "Sortir";
             this.button7.UseVisualStyleBackColor = false;
@@ -444,12 +446,12 @@
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Stencil", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.White;
-            this.label17.Location = new System.Drawing.Point(27, 11);
+            this.label17.Location = new System.Drawing.Point(324, 15);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(766, 40);
+            this.label17.Size = new System.Drawing.Size(505, 40);
             this.label17.TabIndex = 0;
-            this.label17.Text = "Formulaire d\'ajout de nouveaux Livres";
+            this.label17.Text = "Espace Gestion des Livres";
             // 
             // panel3
             // 
@@ -476,7 +478,7 @@
             this.panel3.Location = new System.Drawing.Point(767, 70);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(566, 470);
+            this.panel3.Size = new System.Drawing.Size(566, 468);
             this.panel3.TabIndex = 12;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 

@@ -163,7 +163,7 @@ namespace GestionBibliotheque
                     else
                     {
                         // Mise à jour d'une personne existante
-                        String requete = "UPDATE readers SET titre = @titre, auteur = @auteur, category = @category, date_publication = @date_publication, isbn = @isbn, quantite = @quantite, couverture = @couverture WHERE id = @id";
+                        String requete = "UPDATE books SET titre = @titre, auteur = @auteur, category = @category, date_publication = @date_publication, isbn = @isbn, quantite = @quantite, couverture = @couverture WHERE id = @id";
                         cmd.CommandText = requete;
                         cmd.Parameters.AddWithValue("@id", id_masque.Text);
                     }
@@ -303,12 +303,13 @@ namespace GestionBibliotheque
 
                     // Remplir les champs du formulaire avec les données récupérées
                     id_masque.Text = id.ToString();
-                    t_titre_d.Text = titre;
-                    t_auteur_d.Text = auteur;
-                    t_category_d.Text = category;
-                    t_date_d.Text = date_publication;
-                    t_isbn_d.Text = isbn;
-                    p_couverture_d.Image = p_couverture.Image;
+                    t_titre.Text = titre;
+                    t_auteur.Text = auteur;
+                    t_category.Text = category;
+                    t_date.Text = date_publication;
+                    t_quantite.Text = quantite;
+                    t_isbn.Text = isbn;
+                    p_couverture.Image = p_couverture_d.Image;
                    
                 }
                 else
@@ -317,6 +318,52 @@ namespace GestionBibliotheque
                 }
 
 
+            }
+        }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.SelectedRows.Count > 0)
+            {
+                try
+                {
+                    int id = Convert.ToInt32(dataGridView2.SelectedRows[0].Cells["id"].Value);
+                    string titre = dataGridView2.SelectedRows[0].Cells["titre"].Value.ToString();
+
+                    if (MessageBox.Show("Voulez-vous vraiment supprimer le livre:  " + titre + " ?", "Confirmation de suppression", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        DBConnector connexion = new DBConnector();
+                        string requete = "DELETE FROM books WHERE id = @id";
+                        MySqlCommand cmd = new MySqlCommand(requete, connexion.Connection);
+                        cmd.Parameters.AddWithValue("@id", id);
+
+                        connexion.OpenConnection();
+                        cmd.ExecuteNonQuery();
+                        connexion.CloseConnection();
+
+                        string query = "SELECT id,titre,auteur,category,date_publication,isbn, quantite FROM books;";
+                        connexion.Select(query, dataGridView2);
+
+                        MessageBox.Show("Le Livre " + titre + " a été supprimé avec succès.");
+
+                        t_titre.Text = "";
+                        t_auteur.Text = "";
+                        t_category.Text = "";
+                        t_date.Text = "";
+                        t_isbn.Text = "";
+                        t_quantite.Text = "";
+                        p_couverture.Image = null;
+                        id_masque.Text = "";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Une erreur s'est produite lors de la suppression du lecteur : " + ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un lecteur à supprimer.");
             }
         }
     }

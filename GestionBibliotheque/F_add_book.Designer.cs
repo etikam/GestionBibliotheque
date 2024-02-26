@@ -664,6 +664,7 @@
             this.guna2Button2.Size = new System.Drawing.Size(275, 47);
             this.guna2Button2.TabIndex = 17;
             this.guna2Button2.Text = "Supprimer";
+            this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
             // 
             // guna2Button1
             // 

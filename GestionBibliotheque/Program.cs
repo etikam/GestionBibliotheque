@@ -16,7 +16,7 @@ namespace GestionBibliotheque
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new F_Connexion());
+            Application.Run(new F_add_book());
         }
     }
 }

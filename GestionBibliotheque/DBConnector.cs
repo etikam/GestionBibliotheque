@@ -170,6 +170,8 @@ namespace GestionBibliotheque
         public void Backup() { }
 
         public void Restore() { }
+
+        
         public MySqlConnection Connection
         {
             get { return connection; }

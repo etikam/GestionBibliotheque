@@ -420,5 +420,61 @@ namespace GestionBibliotheque
 
             
         }
+
+        private void tb_nom_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+      /*  private void btn_search_Click(object sender, EventArgs e)
+        {
+            string searchTerm = tb_search.Text.Trim(); // Récupérer le terme de recherche
+            string requete = "SELECT id, nom, prenom, adresse, email, telephone FROM readers;";
+            DBConnector connexion = new DBConnector();
+            DataTable dataTable = connexion.Select(requete);
+
+            // Vérifier si le terme de recherche est vide
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                // Si le terme de recherche est vide, afficher toutes les données
+                dataGridView1.DataSource = dataTable; // Utilisez votre DataTable existante ici
+            }
+            else
+            {
+                // Filtrer les données selon le terme de recherche
+                DataTable filteredDataTable = FilterDataTable(dataTable, searchTerm);
+                dataGridView1.DataSource = filteredDataTable;
+            }
+        } */
+
+        // Méthode pour filtrer le DataTable en fonction du terme de recherche
+        private DataTable FilterDataTable(DataTable dataTable, string searchTerm)
+        {
+            DataTable filteredDataTable = new DataTable();
+            foreach (DataColumn column in dataTable.Columns)
+            {
+                filteredDataTable.Columns.Add(column.ColumnName, column.DataType);
+            }
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                bool found = false;
+                foreach (object item in row.ItemArray)
+                {
+                    if (item.ToString().IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                {
+                    filteredDataTable.ImportRow(row);
+                }
+            }
+
+            return filteredDataTable;
+        }
+
     }
 }

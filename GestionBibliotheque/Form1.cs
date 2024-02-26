@@ -108,5 +108,15 @@ namespace GestionBibliotheque
             F_add_book f_add_book = new F_add_book();
             f_add_book.Show();
         }
+
+        private void guna2ShadowPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void guna2HtmlLabel2_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

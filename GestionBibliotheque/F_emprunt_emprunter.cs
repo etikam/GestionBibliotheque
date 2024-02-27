@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,9 +15,12 @@ namespace GestionBibliotheque
 {
     public partial class F_emprunt_emprunter : Form
     {
+        public Bitmap Image { get; private set; }
+
         public F_emprunt_emprunter()
         {
             InitializeComponent();
+            chargement_du_dataview();
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -100,13 +104,13 @@ namespace GestionBibliotheque
             }
 
 
-            // Remplissage du ccomboBox des ISBN des livres
+            // Remplissage du comboBox des ISBN des livres
 
             try
             {
-                string queryCategories = "SELECT * FROM books";
+                string QueryCategories = "SELECT * FROM books";
                 DBConnector connexionCategories = new DBConnector();
-                MySqlCommand cmd = new MySqlCommand(queryCategories, connexionCategories.Connection);
+                MySqlCommand cmd = new MySqlCommand(QueryCategories, connexionCategories.Connection);
 
                 connexionCategories.OpenConnection();
 
@@ -139,59 +143,47 @@ namespace GestionBibliotheque
 
         private void cb_lecteur_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MySqlConnection connection = null;
-            MySqlDataReader readerLecteur = null;
-
+            DBConnector con = null;
+            MySqlDataReader lecteure = null;
             try
             {
+     
                 // Récupérer le nom complet sélectionné dans le comboBox
                 string nomComplet = cb_lecteur.SelectedItem.ToString();
-
+    
                 // Diviser le nom complet en nom et prénom
                 string[] nomPrenom = nomComplet.Split(' ');
                 string ids = nomPrenom[0];
                 string nom = nomPrenom[1];
                 string prenom = nomPrenom[2];
-                
+
                 int id = Convert.ToInt32(ids);
-                    // Requête pour récupérer les 
-          
-                string queryLecteur = "SELECT * FROM readers WHERE id = @id";
-                
-                // Créer la connexion à la base de données
-                connection = new MySqlConnection("connectionString");
-                
-                // Créer la commande SQL
-                MySqlCommand cmdLecteur = new MySqlCommand(queryLecteur, connection);
-                cmdLecteur.Parameters.AddWithValue("@id", id);
 
+
+                con = new DBConnector();
+                string query = "SELECT * FROM readers WHERE id = @id";
                
+                MySqlCommand cmd = new MySqlCommand(query, con.Connection);
+                con.OpenConnection();
+                
+                cmd.Parameters.AddWithValue("@id", id);
+                lecteure = cmd.ExecuteReader();
                 // Ouvrir la connexion à la base de données
-                connection.Open();
 
-                // Exécuter la commande SQL
-                readerLecteur = cmdLecteur.ExecuteReader();
 
                 // Remplir les textBox avec les informations récupérées
-                if (readerLecteur.Read())
+                if (lecteure.Read())
                 {
-                   
-                   
-                    t_email.Text = readerLecteur.GetString("email");
-                    t_telephone.Text = readerLecteur.GetString("telephone");
-            
+                    t_email.Text = lecteure.GetString("email");
+                    t_telephone.Text = lecteure.GetString("telephone");
 
-                    byte[] imageData = (byte[])readerLecteur["image"];
-
-                   
-                    MemoryStream ms = new MemoryStream(imageData);
-                    p_image_lecteur.Image = Image.FromStream(ms);
+                    byte[] imageBytes = (byte[])lecteure["photo"];
+                    MemoryStream ms = new MemoryStream(imageBytes);
+                    p_image_lecteur.Image = new Bitmap(ms);
 
                     // Libérer les ressources après avoir utilisé MemoryStream
                     ms.Close();
                     ms.Dispose();
-
-
                 }
             }
             catch (Exception ex)
@@ -201,12 +193,159 @@ namespace GestionBibliotheque
             finally
             {
                 // Fermer le reader et la connexion à la base de données dans le bloc finally pour s'assurer qu'ils sont toujours fermés
-                if (readerLecteur != null)
-                    readerLecteur.Close();
+                if (lecteure!= null)
+                    lecteure.Close();
 
-                if (connection != null)
-                    connection.Close();
+                if (con != null)
+                    con.CloseConnection();
             }
+        }
+
+        private void cb_isbn_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            {
+                DBConnector con = null;
+                MySqlDataReader lecteure = null;
+                try
+                {
+                    // Récupérer le nom complet sélectionné dans le comboBox
+                    string nomComplet = cb_isbn.SelectedItem.ToString();
+
+                    // Diviser l'isbn en isbn et livre
+                    string[] isbns = nomComplet.Split(' ');
+                    string isbn = isbns[0];
+             
+                    con = new DBConnector();
+                    string query = "SELECT * FROM books WHERE isbn = @isbn";
+
+                    MySqlCommand cmd = new MySqlCommand(query, con.Connection);
+                    con.OpenConnection();
+
+                    cmd.Parameters.AddWithValue("@isbn", isbn);
+                    lecteure = cmd.ExecuteReader();
+
+                    if (lecteure.Read())
+                    {
+                        t_titre.Text = lecteure.GetString("titre");
+         
+
+                        byte[] imageBytes = (byte[])lecteure["couverture"];
+                        MemoryStream ms = new MemoryStream(imageBytes);
+                        p_image_livre.Image = new Bitmap(ms);
+
+                        // Libérer les ressources après avoir utilisé MemoryStream
+                        ms.Close();
+                        ms.Dispose();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Une erreur s'est produite lors de la récupération des informations du lecteur : " + ex.Message);
+                }
+                finally
+                {
+                    // Fermer le reader et la connexion à la base de données dans le bloc finally pour s'assurer qu'ils sont toujours fermés
+                    if (lecteure != null)
+                        lecteure.Close();
+
+                    if (con != null)
+                        con.CloseConnection();
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            {
+                bool erreur = false;
+                String message_erreur = "";
+                if (cb_lecteur.SelectedItem == null)
+                {
+                    erreur = true;
+                    message_erreur += "\n Aucun lecteur selectionné";
+                } 
+                
+                if (cb_isbn.SelectedItem == null)
+                {
+                    erreur = true;
+                    message_erreur += "\n Aucun Livre selectionné";
+                }
+
+                if (erreur)
+                {
+                    MessageBox.Show(message_erreur);
+                }
+                else
+                {
+                    try
+                    {
+                        byte[] imageBytes_lecteur = ImageToByteArray(p_image_lecteur.Image);
+                        byte[] imageBytes_livre = ImageToByteArray(p_image_livre.Image);
+
+                        DBConnector connexion = new DBConnector();
+                        MySqlCommand cmd = new MySqlCommand();
+                        cmd.Connection = connexion.Connection;
+
+                        if (string.IsNullOrEmpty(id_masque.Text))
+                        {
+                            // Insertion d'une nouvelle personne
+                            String requete = "INSERT INTO borrowed(id_lecteur,id_livre,date_emprunt,date_retour)" +
+                                " VALUES(@id_lecteur, @id_livre, @date_emprunt, @date_retour)";
+                            cmd.CommandText = requete;
+                        }
+                        else
+                        {
+                            // Mise à jour d'une personne existante
+                            String requete = "UPDATE borrowed SET id_lecteur = @id_lecteur, id_livre = @id_livre, date_emprunt = @date_emprunt, date_retour = @date_retour WHERE id = @id";
+                            cmd.CommandText = requete;
+                            cmd.Parameters.AddWithValue("@id", id_masque.Text);
+                        }
+
+                        cmd.Parameters.AddWithValue("@id_lecteur", cb_lecteur.Text);
+                        cmd.Parameters.AddWithValue("@id_livre", cb_isbn.Text);
+                        cmd.Parameters.AddWithValue("@date_emprunt", t_date_deb.Value);
+                        cmd.Parameters.AddWithValue("@date_retour", t_date_fin.Value);
+                     
+
+                        connexion.OpenConnection();
+                        cmd.ExecuteNonQuery();
+                        connexion.CloseConnection();
+
+
+                        chargement_du_dataview();
+
+                        id_masque.Text = "";
+                        MessageBox.Show("Modification Effectuée.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Une erreur s'est produite lors de l'opération : " + ex.Message);
+                    }
+                }
+            }
+           
+        }
+        private byte[] ImageToByteArray(Image image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+
+                image.Save(ms, ImageFormat.Png); // Vous pouvez choisir le format approprié
+                return ms.ToArray();
+            }
+        }
+
+        public void chargement_du_dataview()
+        {
+
+           DBConnector connexion = new DBConnector();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = connexion.Connection;
+
+            String query = "SELECT id_lecteur, id_livre,date_emprunt,date_retour FROM borrowed";
+            connexion.Select(query, dataGridView3);
         }
     }
 }

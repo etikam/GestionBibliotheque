@@ -476,5 +476,9 @@ namespace GestionBibliotheque
             return filteredDataTable;
         }
 
+        private void tb_image_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

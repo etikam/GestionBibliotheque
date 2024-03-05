@@ -171,7 +171,11 @@ namespace GestionBibliotheque
 
         public void Restore() { }
 
-        
+        internal MySqlConnection GetConnection()
+        {
+            return connection;
+        }
+
         public MySqlConnection Connection
         {
             get { return connection; }

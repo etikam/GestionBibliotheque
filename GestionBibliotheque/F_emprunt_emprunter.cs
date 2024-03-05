@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -90,7 +91,7 @@ namespace GestionBibliotheque
                     String id = reader.GetString("id");
                     String nom = reader.GetString("nom");
                     String prenom = reader.GetString("prenom");
-                    String nom_complet = id + " " + nom + " "+ prenom;
+                    String nom_complet = id + " " + nom + " " + prenom;
                     cb_lecteur.Items.Add(nom_complet);
                 }
 
@@ -147,10 +148,10 @@ namespace GestionBibliotheque
             MySqlDataReader lecteure = null;
             try
             {
-     
+
                 // Récupérer le nom complet sélectionné dans le comboBox
                 string nomComplet = cb_lecteur.SelectedItem.ToString();
-    
+
                 // Diviser le nom complet en nom et prénom
                 string[] nomPrenom = nomComplet.Split(' ');
                 string ids = nomPrenom[0];
@@ -162,10 +163,10 @@ namespace GestionBibliotheque
 
                 con = new DBConnector();
                 string query = "SELECT * FROM readers WHERE id = @id";
-               
+
                 MySqlCommand cmd = new MySqlCommand(query, con.Connection);
                 con.OpenConnection();
-                
+
                 cmd.Parameters.AddWithValue("@id", id);
                 lecteure = cmd.ExecuteReader();
                 // Ouvrir la connexion à la base de données
@@ -193,7 +194,91 @@ namespace GestionBibliotheque
             finally
             {
                 // Fermer le reader et la connexion à la base de données dans le bloc finally pour s'assurer qu'ils sont toujours fermés
-                if (lecteure!= null)
+                if (lecteure != null)
+                    lecteure.Close();
+
+                if (con != null)
+                    con.CloseConnection();
+            }
+        }
+
+        private int get_set_quatity(String isbn = null)
+        {
+            int quantity = -1;
+
+            DBConnector con = null;
+            MySqlDataReader lecteure = null;
+            try
+            {
+                // Récupérer le nom complet sélectionné dans le comboBox
+                string nomComplet = cb_isbn.SelectedItem.ToString();
+
+                // Diviser l'isbn en isbn et livre
+                string[] isbns = nomComplet.Split(' ');
+                isbn = isbns[0];
+
+                con = new DBConnector();
+                string query = "SELECT * FROM books WHERE isbn = @isbn";
+
+                MySqlCommand cmd = new MySqlCommand(query, con.Connection);
+                con.OpenConnection();
+
+                cmd.Parameters.AddWithValue("@isbn", isbn);
+                lecteure = cmd.ExecuteReader();
+
+                if (lecteure.Read())
+                {
+
+                    quantity = lecteure.GetInt16("quantite");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produite lors de la récupération de la quantité du livre : " + ex.Message);
+            }
+            finally
+            {
+                // Fermer le reader et la connexion à la base de données dans le bloc finally pour s'assurer qu'ils sont toujours fermés
+                if (lecteure != null)
+                    lecteure.Close();
+
+                if (con != null)
+                    con.CloseConnection();
+            }
+
+            return quantity;
+        }
+
+        private void set_quantity(int quantity, String isbn)
+        {
+
+            quantity = quantity - 1;
+            DBConnector con = null;
+            MySqlDataReader lecteure = null;
+            try
+            {
+
+
+                con = new DBConnector();
+                string query = "UPDATE books  set quantite=@qt WHERE isbn = @isbn";
+
+                MySqlCommand cmd = new MySqlCommand(query, con.Connection);
+                con.OpenConnection();
+
+                cmd.Parameters.AddWithValue("@qt", quantity);
+                cmd.Parameters.AddWithValue("@isbn", isbn);
+                int row = cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produite lors de la récupération de la quantité du livre : " + ex.Message);
+            }
+            finally
+            {
+                // Fermer le reader et la connexion à la base de données dans le bloc finally pour s'assurer qu'ils sont toujours fermés
+                if (lecteure != null)
                     lecteure.Close();
 
                 if (con != null)
@@ -203,56 +288,57 @@ namespace GestionBibliotheque
 
         private void cb_isbn_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int quantity = -1;
 
+            DBConnector con = null;
+            MySqlDataReader lecteure = null;
+            try
             {
-                DBConnector con = null;
-                MySqlDataReader lecteure = null;
-                try
+                // Récupérer le nom complet sélectionné dans le comboBox
+                string nomComplet = cb_isbn.SelectedItem.ToString();
+
+                // Diviser l'isbn en isbn et livre
+                string[] isbns = nomComplet.Split(' ');
+                string isbn = isbns[0];
+
+                con = new DBConnector();
+                string query = "SELECT * FROM books WHERE isbn = @isbn";
+
+                MySqlCommand cmd = new MySqlCommand(query, con.Connection);
+                con.OpenConnection();
+
+                cmd.Parameters.AddWithValue("@isbn", isbn);
+                lecteure = cmd.ExecuteReader();
+
+                if (lecteure.Read())
                 {
-                    // Récupérer le nom complet sélectionné dans le comboBox
-                    string nomComplet = cb_isbn.SelectedItem.ToString();
+                    t_titre.Text = lecteure.GetString("titre");
+                    quantity = lecteure.GetInt16("quantite");
 
-                    // Diviser l'isbn en isbn et livre
-                    string[] isbns = nomComplet.Split(' ');
-                    string isbn = isbns[0];
-             
-                    con = new DBConnector();
-                    string query = "SELECT * FROM books WHERE isbn = @isbn";
+                    byte[] imageBytes = (byte[])lecteure["couverture"];
+                    MemoryStream ms = new MemoryStream(imageBytes);
+                    p_image_livre.Image = new Bitmap(ms);
 
-                    MySqlCommand cmd = new MySqlCommand(query, con.Connection);
-                    con.OpenConnection();
-
-                    cmd.Parameters.AddWithValue("@isbn", isbn);
-                    lecteure = cmd.ExecuteReader();
-
-                    if (lecteure.Read())
-                    {
-                        t_titre.Text = lecteure.GetString("titre");
-         
-
-                        byte[] imageBytes = (byte[])lecteure["couverture"];
-                        MemoryStream ms = new MemoryStream(imageBytes);
-                        p_image_livre.Image = new Bitmap(ms);
-
-                        // Libérer les ressources après avoir utilisé MemoryStream
-                        ms.Close();
-                        ms.Dispose();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Une erreur s'est produite lors de la récupération des informations du lecteur : " + ex.Message);
-                }
-                finally
-                {
-                    // Fermer le reader et la connexion à la base de données dans le bloc finally pour s'assurer qu'ils sont toujours fermés
-                    if (lecteure != null)
-                        lecteure.Close();
-
-                    if (con != null)
-                        con.CloseConnection();
+                    // Libérer les ressources après avoir utilisé MemoryStream
+                    ms.Close();
+                    ms.Dispose();
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produite lors de la récupération des informations du lecteur : " + ex.Message);
+            }
+            finally
+            {
+                // Fermer le reader et la connexion à la base de données dans le bloc finally pour s'assurer qu'ils sont toujours fermés
+                if (lecteure != null)
+                    lecteure.Close();
+
+                if (con != null)
+                    con.CloseConnection();
+            }
+
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -265,8 +351,8 @@ namespace GestionBibliotheque
                 {
                     erreur = true;
                     message_erreur += "\n Aucun lecteur selectionné";
-                } 
-                
+                }
+
                 if (cb_isbn.SelectedItem == null)
                 {
                     erreur = true;
@@ -288,36 +374,41 @@ namespace GestionBibliotheque
                         MySqlCommand cmd = new MySqlCommand();
                         cmd.Connection = connexion.Connection;
 
-                        if (string.IsNullOrEmpty(id_masque.Text))
+                        string[] mon_isbn = cb_isbn.Text.Split(' ');
+                        String isbn = mon_isbn[0];
+                        MessageBox.Show("jai capturé isbn: " + isbn);
+
+                        if (quantite(isbn) == 0)
                         {
+                            MessageBox.Show("Ce livre n'est pas disponible en empunt");
+                        }
+                        else
+                        {
+
+
+
                             // Insertion d'une nouvelle personne
                             String requete = "INSERT INTO borrowed(id_lecteur,id_livre,date_emprunt,date_retour)" +
                                 " VALUES(@id_lecteur, @id_livre, @date_emprunt, @date_retour)";
                             cmd.CommandText = requete;
+
+                            cmd.Parameters.AddWithValue("@id_lecteur", cb_lecteur.Text);
+                            cmd.Parameters.AddWithValue("@id_livre", cb_isbn.Text);
+                            cmd.Parameters.AddWithValue("@date_emprunt", t_date_deb.Value);
+                            cmd.Parameters.AddWithValue("@date_retour", t_date_fin.Value);
+
+                            connexion.OpenConnection();
+                            cmd.ExecuteNonQuery();
+                            connexion.CloseConnection();
+
+
+                            chargement_du_dataview();
+
+                            //    id_masque.Text = "";
+
+                            update_quantite(isbn, false);
+                            MessageBox.Show("Modification Effectuée.");
                         }
-                        else
-                        {
-                            // Mise à jour d'une personne existante
-                            String requete = "UPDATE borrowed SET id_lecteur = @id_lecteur, id_livre = @id_livre, date_emprunt = @date_emprunt, date_retour = @date_retour WHERE id = @id";
-                            cmd.CommandText = requete;
-                            cmd.Parameters.AddWithValue("@id", id_masque.Text);
-                        }
-
-                        cmd.Parameters.AddWithValue("@id_lecteur", cb_lecteur.Text);
-                        cmd.Parameters.AddWithValue("@id_livre", cb_isbn.Text);
-                        cmd.Parameters.AddWithValue("@date_emprunt", t_date_deb.Value);
-                        cmd.Parameters.AddWithValue("@date_retour", t_date_fin.Value);
-                     
-
-                        connexion.OpenConnection();
-                        cmd.ExecuteNonQuery();
-                        connexion.CloseConnection();
-
-
-                        chargement_du_dataview();
-
-                        id_masque.Text = "";
-                        MessageBox.Show("Modification Effectuée.");
                     }
                     catch (Exception ex)
                     {
@@ -325,7 +416,7 @@ namespace GestionBibliotheque
                     }
                 }
             }
-           
+
         }
         private byte[] ImageToByteArray(Image image)
         {
@@ -337,15 +428,125 @@ namespace GestionBibliotheque
             }
         }
 
+
+
+
+
+
+        private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         public void chargement_du_dataview()
         {
 
-           DBConnector connexion = new DBConnector();
+            DBConnector connexion = new DBConnector();
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = connexion.Connection;
 
             String query = "SELECT id_lecteur, id_livre,date_emprunt,date_retour FROM borrowed";
-            connexion.Select(query, dataGridView3);
+            connexion.Select(query, guna2DataGridView1);
         }
+
+
+
+        public int quantite(String isbn)
+        {
+            int qt = 0;
+
+            try
+            {
+                // Création de la connexion à la base de données
+                DBConnector connexion = new DBConnector();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = connexion.Connection;
+
+                // Définition de la requête SQL avec un paramètre
+                string query = "SELECT quantite FROM books WHERE isbn = @isbn";
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@isbn", isbn);
+
+                // Ouverture de la connexion à la base de données
+                connexion.OpenConnection();
+
+                // Exécution de la commande SQL et récupération du résultat
+                object result = cmd.ExecuteScalar();
+
+                // Vérification si le résultat n'est pas null
+                if (result != null)
+                {
+                    // Conversion du résultat en entier
+                    qt = Convert.ToInt32(result);
+                }
+
+                // Fermeture de la connexion à la base de données
+                connexion.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                // Gestion des exceptions
+                MessageBox.Show("Une erreur s'est produite lors de la récupération de la quantité du livre : " + ex.Message);
+            }
+
+            // Retour de la quantité récupérée
+            return qt;
+        }
+
+        public void update_quantite(String isbn, bool increment)
+        {
+            int qt = quantite(isbn);
+
+            if (increment == true)
+            {
+                qt = qt + 1;
+            }
+            else
+            {
+                qt = qt - 1;
+            }
+
+            try
+            {
+                // Création de la connexion à la base de données
+                DBConnector connexion = new DBConnector();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = connexion.Connection;
+
+                // Définition de la requête SQL avec des paramètres
+                String query = "UPDATE books SET quantite = @quantite WHERE isbn = @isbn";
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@quantite", qt);
+                cmd.Parameters.AddWithValue("@isbn", isbn);
+
+                // Ouverture de la connexion à la base de données
+                connexion.OpenConnection();
+
+                // Exécution de la commande SQL
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                // Fermeture de la connexion à la base de données
+                connexion.CloseConnection();
+
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Quantité mise à jour avec succès.");
+                }
+                else
+                {
+                    MessageBox.Show("Aucune ligne n'a été mise à jour.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produite lors de la mise à jour de la quantité : " + ex.Message);
+            }
+        }
+
     }
 }

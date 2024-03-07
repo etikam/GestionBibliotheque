@@ -19,6 +19,7 @@ namespace GestionBibliotheque
         public F_add_reader()
         {
             InitializeComponent();
+            chargement_data(null);
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -140,9 +141,9 @@ namespace GestionBibliotheque
                     tb_image.Image = null;
                     id_masque.Text = "";
 
-                    String query = "SELECT id, nom, prenom, addresse, email, telephone FROM readers";
-                    connexion.Select(query, dataGridView1);
-                   
+
+                    chargement_data(null);
+
                     MessageBox.Show("Modification Effectuée.");
                 }
                 catch (Exception ex)
@@ -363,6 +364,7 @@ namespace GestionBibliotheque
 
                         MessageBox.Show("Le lecteur " + nom + " a été supprimé avec succès.");
 
+
                         tb_id_d.Text = "";
                         tb_nom_d.Text = "";
                         tb_prenom_d.Text = "";
@@ -370,6 +372,7 @@ namespace GestionBibliotheque
                         tb_telephone_d.Text = "";
                         tb_email_d.Text = "";
                         pictureBox2.Image = null;
+
                     }
                 }
                 catch (Exception ex)
@@ -480,5 +483,47 @@ namespace GestionBibliotheque
         {
 
         }
+
+        private void btn_search_Click(object sender, EventArgs e)
+        {
+            chargement_data(tb_search.Text);
+        }
+
+        private void chargement_data(string search_term)
+        {
+            DBConnector connexion = new DBConnector();
+
+            if (search_term == null || search_term=="")
+            {
+                string query = "SELECT id, nom, prenom, addresse, email, telephone FROM readers";
+                connexion.Select(query, dataGridView1);
+            }
+            else
+            {
+                string query = "SELECT id, nom, prenom, addresse, email, telephone FROM readers WHERE nom = @searchTerm";
+                MySqlCommand command = new MySqlCommand(query, connexion.Connection);
+                command.Parameters.AddWithValue("@searchTerm", search_term);
+
+                try
+                {
+                    connexion.OpenConnection();
+
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet, "lecteurs");
+
+                    dataGridView1.DataSource = dataSet.Tables["lecteurs"];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Une erreur s'est produite lors de la récupération des données : " + ex.Message);
+                }
+                finally
+                {
+                    connexion.CloseConnection();
+                }
+            }
+        }
+
     }
 }

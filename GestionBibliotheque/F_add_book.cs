@@ -19,6 +19,7 @@ namespace GestionBibliotheque
         public F_add_book()
         {
             InitializeComponent();
+            chargement_data(null);
         }
 
         private void label19_Click(object sender, EventArgs e)
@@ -29,14 +30,23 @@ namespace GestionBibliotheque
         private void F_add_book_Load(object sender, EventArgs e)
         {
             // Remplir la DataGridView avec les données de la table des livres
-            String requeteBooks = "SELECT id, titre, auteur, category, date_publication, isbn, quantite FROM books;";
+            chargement_du_datagrid();
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        public void chargement_du_datagrid()
+        {
+            String requeteBooks = "SELECT id, titre, auteur, category, date_publication, isbn, quantite, stock FROM books;";
             DBConnector connexionBooks = new DBConnector();
             connexionBooks.Select(requeteBooks, dataGridView2);
 
             // Remplir la ComboBox avec les catégories
             try
             {
-               
+
                 string queryCategories = "SELECT nom FROM categories";
 
                 DBConnector connexionCategories = new DBConnector();
@@ -44,19 +54,19 @@ namespace GestionBibliotheque
 
                 connexionCategories.OpenConnection();
 
-       
+
                 MySqlDataReader reader = cmd.ExecuteReader();
 
-            
+
                 t_category.Items.Clear();
 
-       
+
                 while (reader.Read())
-                {     
+                {
                     t_category.Items.Add(reader.GetString("nom"));
                 }
 
-              
+
                 reader.Close();
                 connexionCategories.CloseConnection();
             }
@@ -66,12 +76,6 @@ namespace GestionBibliotheque
                 MessageBox.Show("Une erreur s'est produite lors de la récupération des catégories : " + ex.Message);
             }
         }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void button7_Click(object sender, EventArgs e)
         {
 
@@ -157,13 +161,13 @@ namespace GestionBibliotheque
                     if (string.IsNullOrEmpty(id_masque.Text))
                     {
                         // Insertion d'une nouvelle personne
-                        String requete = "INSERT INTO books(titre,auteur,category,date_publication,isbn, quantite,couverture) VALUES(@titre, @auteur, @category, @date_publication, @isbn, @quantite, @couverture)";
+                        String requete = "INSERT INTO books(titre,auteur,category,date_publication,isbn, quantite,stock,couverture) VALUES(@titre, @auteur, @category, @date_publication, @isbn, @quantite,@stock, @couverture)";
                         cmd.CommandText = requete;
                     }
                     else
                     {
                         // Mise à jour d'une personne existante
-                        String requete = "UPDATE books SET titre = @titre, auteur = @auteur, category = @category, date_publication = @date_publication, isbn = @isbn, quantite = @quantite, couverture = @couverture WHERE id = @id";
+                        String requete = "UPDATE books SET titre = @titre, auteur = @auteur, category = @category, date_publication = @date_publication, isbn = @isbn, quantite = @quantite, stock=@stock, couverture = @couverture WHERE id = @id";
                         cmd.CommandText = requete;
                         cmd.Parameters.AddWithValue("@id", id_masque.Text);
                     }
@@ -173,8 +177,10 @@ namespace GestionBibliotheque
                     cmd.Parameters.AddWithValue("@category", t_category.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@date_publication", t_date.Value);
                     cmd.Parameters.AddWithValue("@isbn", t_isbn.Text);
-                    cmd.Parameters.AddWithValue("@quantite", t_quantite.Text);
+                    cmd.Parameters.AddWithValue("@quantite", Convert.ToInt32(t_quantite.Text));
+                    cmd.Parameters.AddWithValue("@stock", Convert.ToInt32(t_quantite.Text));
                     cmd.Parameters.AddWithValue("@couverture", imageBytes);
+                    
 
                     connexion.OpenConnection();
                     cmd.ExecuteNonQuery();
@@ -188,8 +194,8 @@ namespace GestionBibliotheque
                     p_couverture.Image = null;
                     t_quantite.Text = "";
 
-                    String query = "SELECT id, titre, auteur, category, date_publication, isbn, quantite FROM books";
-                    connexion.Select(query, dataGridView2);
+                    chargement_du_datagrid();
+   
 
                     MessageBox.Show("Modification Effectuée.");
                 }
@@ -341,9 +347,7 @@ namespace GestionBibliotheque
                         cmd.ExecuteNonQuery();
                         connexion.CloseConnection();
 
-                        string query = "SELECT id,titre,auteur,category,date_publication,isbn, quantite FROM books;";
-                        connexion.Select(query, dataGridView2);
-
+                        chargement_data(null);
                         MessageBox.Show("Le Livre " + titre + " a été supprimé avec succès.");
 
                         t_titre.Text = "";
@@ -354,6 +358,8 @@ namespace GestionBibliotheque
                         t_quantite.Text = "";
                         p_couverture.Image = null;
                         id_masque.Text = "";
+
+
                     }
                 }
                 catch (Exception ex)
@@ -370,6 +376,47 @@ namespace GestionBibliotheque
         private void t_category_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            chargement_data(tb_search.Text);
+        }
+
+        private void chargement_data(string search_term)
+        {
+            DBConnector connexion = new DBConnector();
+
+            if (search_term == null || search_term == "")
+            {
+                string query = "SELECT id,titre,auteur,category,date_publication,isbn, quantite FROM books;";
+                connexion.Select(query, dataGridView2);
+            }
+            else
+            {
+                string query = "SELECT id,titre,auteur,category,date_publication,isbn, quantite FROM books WHERE titre=@searchTerm ;";
+                MySqlCommand command = new MySqlCommand(query, connexion.Connection);
+                command.Parameters.AddWithValue("@searchTerm", search_term);
+
+                try
+                {
+                    connexion.OpenConnection();
+
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet, "livres");
+
+                    dataGridView2.DataSource = dataSet.Tables["livres"];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Une erreur s'est produite lors de la récupération des données : " + ex.Message);
+                }
+                finally
+                {
+                    connexion.CloseConnection();
+                }
+            }
         }
     }
 }

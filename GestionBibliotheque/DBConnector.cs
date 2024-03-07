@@ -16,7 +16,7 @@ namespace GestionBibliotheque
         private string database;
         private string uid;
         private string password;
-
+        private string connectionString;
         public DBConnector()
         {
             Initialize();
@@ -28,12 +28,17 @@ namespace GestionBibliotheque
             database = "librarymanagerdb";
             uid = "root";
             password = null;
-            string connectionString;
+     
 
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" +
+            this.connectionString = "SERVER=" + server + ";" + "DATABASE=" +
             database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
 
             connection = new MySqlConnection(connectionString);
+        }
+
+        public String getConnectionString()
+        {
+            return this.connectionString;
         }
 
         public bool OpenConnection()

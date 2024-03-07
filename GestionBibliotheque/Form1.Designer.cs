@@ -41,13 +41,14 @@
             this.guna2HtmlLabel13 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel14 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel15 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel16 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.l_nombre_emprunts = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel17 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2ShadowPanel2 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.btn_livres = new Guna.UI2.WinForms.Guna2Button();
             this.guna2HtmlLabel9 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel10 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel11 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.l_nombre_livres = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel12 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
@@ -55,12 +56,11 @@
             this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.l_nombre_lecteur = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.btn_livres = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
             this.guna2Panel4.SuspendLayout();
@@ -162,7 +162,7 @@
             this.guna2ShadowPanel3.Controls.Add(this.guna2HtmlLabel13);
             this.guna2ShadowPanel3.Controls.Add(this.guna2HtmlLabel14);
             this.guna2ShadowPanel3.Controls.Add(this.guna2HtmlLabel15);
-            this.guna2ShadowPanel3.Controls.Add(this.guna2HtmlLabel16);
+            this.guna2ShadowPanel3.Controls.Add(this.l_nombre_emprunts);
             this.guna2ShadowPanel3.Controls.Add(this.guna2HtmlLabel17);
             this.guna2ShadowPanel3.Controls.Add(this.guna2PictureBox3);
             this.guna2ShadowPanel3.FillColor = System.Drawing.Color.White;
@@ -223,16 +223,16 @@
             this.guna2HtmlLabel15.TabIndex = 3;
             this.guna2HtmlLabel15.Text = "Nous vous prêtons nos ";
             // 
-            // guna2HtmlLabel16
+            // l_nombre_emprunts
             // 
-            this.guna2HtmlLabel16.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel16.Font = new System.Drawing.Font("Wide Latin", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.guna2HtmlLabel16.Location = new System.Drawing.Point(12, 25);
-            this.guna2HtmlLabel16.Name = "guna2HtmlLabel16";
-            this.guna2HtmlLabel16.Size = new System.Drawing.Size(66, 39);
-            this.guna2HtmlLabel16.TabIndex = 2;
-            this.guna2HtmlLabel16.Text = "15";
+            this.l_nombre_emprunts.BackColor = System.Drawing.Color.Transparent;
+            this.l_nombre_emprunts.Font = new System.Drawing.Font("Wide Latin", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_nombre_emprunts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.l_nombre_emprunts.Location = new System.Drawing.Point(12, 25);
+            this.l_nombre_emprunts.Name = "l_nombre_emprunts";
+            this.l_nombre_emprunts.Size = new System.Drawing.Size(66, 39);
+            this.l_nombre_emprunts.TabIndex = 2;
+            this.l_nombre_emprunts.Text = "15";
             // 
             // guna2HtmlLabel17
             // 
@@ -262,7 +262,7 @@
             this.guna2ShadowPanel2.Controls.Add(this.btn_livres);
             this.guna2ShadowPanel2.Controls.Add(this.guna2HtmlLabel9);
             this.guna2ShadowPanel2.Controls.Add(this.guna2HtmlLabel10);
-            this.guna2ShadowPanel2.Controls.Add(this.guna2HtmlLabel11);
+            this.guna2ShadowPanel2.Controls.Add(this.l_nombre_livres);
             this.guna2ShadowPanel2.Controls.Add(this.guna2HtmlLabel12);
             this.guna2ShadowPanel2.Controls.Add(this.guna2PictureBox2);
             this.guna2ShadowPanel2.FillColor = System.Drawing.Color.White;
@@ -274,6 +274,24 @@
             this.guna2ShadowPanel2.ShadowStyle = Guna.UI2.WinForms.Guna2ShadowPanel.ShadowMode.ForwardDiagonal;
             this.guna2ShadowPanel2.Size = new System.Drawing.Size(279, 232);
             this.guna2ShadowPanel2.TabIndex = 7;
+            // 
+            // btn_livres
+            // 
+            this.btn_livres.AutoRoundedCorners = true;
+            this.btn_livres.BorderRadius = 23;
+            this.btn_livres.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btn_livres.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btn_livres.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btn_livres.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btn_livres.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btn_livres.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.btn_livres.ForeColor = System.Drawing.Color.White;
+            this.btn_livres.Location = new System.Drawing.Point(6, 167);
+            this.btn_livres.Name = "btn_livres";
+            this.btn_livres.Size = new System.Drawing.Size(251, 48);
+            this.btn_livres.TabIndex = 6;
+            this.btn_livres.Text = "Voir plus";
+            this.btn_livres.Click += new System.EventHandler(this.btn_livres_Click);
             // 
             // guna2HtmlLabel9
             // 
@@ -295,16 +313,16 @@
             this.guna2HtmlLabel10.TabIndex = 3;
             this.guna2HtmlLabel10.Text = "Nos Livres sont le fruits";
             // 
-            // guna2HtmlLabel11
+            // l_nombre_livres
             // 
-            this.guna2HtmlLabel11.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel11.Font = new System.Drawing.Font("Wide Latin", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.guna2HtmlLabel11.Location = new System.Drawing.Point(6, 25);
-            this.guna2HtmlLabel11.Name = "guna2HtmlLabel11";
-            this.guna2HtmlLabel11.Size = new System.Drawing.Size(113, 33);
-            this.guna2HtmlLabel11.TabIndex = 2;
-            this.guna2HtmlLabel11.Text = "1100";
+            this.l_nombre_livres.BackColor = System.Drawing.Color.Transparent;
+            this.l_nombre_livres.Font = new System.Drawing.Font("Wide Latin", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_nombre_livres.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.l_nombre_livres.Location = new System.Drawing.Point(6, 25);
+            this.l_nombre_livres.Name = "l_nombre_livres";
+            this.l_nombre_livres.Size = new System.Drawing.Size(113, 33);
+            this.l_nombre_livres.TabIndex = 2;
+            this.l_nombre_livres.Text = "1100";
             // 
             // guna2HtmlLabel12
             // 
@@ -335,7 +353,7 @@
             this.guna2ShadowPanel1.Controls.Add(this.guna2HtmlLabel7);
             this.guna2ShadowPanel1.Controls.Add(this.guna2HtmlLabel6);
             this.guna2ShadowPanel1.Controls.Add(this.guna2HtmlLabel5);
-            this.guna2ShadowPanel1.Controls.Add(this.guna2HtmlLabel4);
+            this.guna2ShadowPanel1.Controls.Add(this.l_nombre_lecteur);
             this.guna2ShadowPanel1.Controls.Add(this.guna2HtmlLabel3);
             this.guna2ShadowPanel1.Controls.Add(this.guna2PictureBox1);
             this.guna2ShadowPanel1.FillColor = System.Drawing.Color.White;
@@ -397,16 +415,17 @@
             this.guna2HtmlLabel5.TabIndex = 3;
             this.guna2HtmlLabel5.Text = "Nos Lecteurs sont ceux ";
             // 
-            // guna2HtmlLabel4
+            // l_nombre_lecteur
             // 
-            this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel4.Font = new System.Drawing.Font("Wide Latin", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.guna2HtmlLabel4.Location = new System.Drawing.Point(12, 25);
-            this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            this.guna2HtmlLabel4.Size = new System.Drawing.Size(105, 39);
-            this.guna2HtmlLabel4.TabIndex = 2;
-            this.guna2HtmlLabel4.Text = "120";
+            this.l_nombre_lecteur.BackColor = System.Drawing.Color.Transparent;
+            this.l_nombre_lecteur.Font = new System.Drawing.Font("Wide Latin", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.l_nombre_lecteur.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.l_nombre_lecteur.Location = new System.Drawing.Point(12, 25);
+            this.l_nombre_lecteur.Name = "l_nombre_lecteur";
+            this.l_nombre_lecteur.Size = new System.Drawing.Size(105, 39);
+            this.l_nombre_lecteur.TabIndex = 2;
+            this.l_nombre_lecteur.Text = "120";
+            this.l_nombre_lecteur.Click += new System.EventHandler(this.l_nombre_lecteur_Click);
             // 
             // guna2HtmlLabel3
             // 
@@ -453,24 +472,6 @@
             this.guna2HtmlLabel1.TabIndex = 0;
             this.guna2HtmlLabel1.Text = "BIENVENU DANS";
             // 
-            // btn_livres
-            // 
-            this.btn_livres.AutoRoundedCorners = true;
-            this.btn_livres.BorderRadius = 23;
-            this.btn_livres.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btn_livres.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btn_livres.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btn_livres.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btn_livres.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btn_livres.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.btn_livres.ForeColor = System.Drawing.Color.White;
-            this.btn_livres.Location = new System.Drawing.Point(6, 167);
-            this.btn_livres.Name = "btn_livres";
-            this.btn_livres.Size = new System.Drawing.Size(251, 48);
-            this.btn_livres.TabIndex = 6;
-            this.btn_livres.Text = "Voir plus";
-            this.btn_livres.Click += new System.EventHandler(this.btn_livres_Click);
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -484,6 +485,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Accueil";
+            this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.guna2Panel1.ResumeLayout(false);
@@ -518,7 +520,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel1;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
+        public Guna.UI2.WinForms.Guna2HtmlLabel l_nombre_lecteur;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
@@ -529,13 +531,13 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel13;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel14;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel15;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel16;
+        public Guna.UI2.WinForms.Guna2HtmlLabel l_nombre_emprunts;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel17;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox3;
         private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel2;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel10;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel11;
+        public Guna.UI2.WinForms.Guna2HtmlLabel l_nombre_livres;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel12;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
         private Guna.UI2.WinForms.Guna2Button btn_livres;

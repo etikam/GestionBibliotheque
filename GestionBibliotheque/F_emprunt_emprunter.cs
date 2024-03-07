@@ -22,6 +22,7 @@ namespace GestionBibliotheque
         {
             InitializeComponent();
             chargement_du_dataview();
+            chargement_du_dataview_history();
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -343,81 +344,110 @@ namespace GestionBibliotheque
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            bool erreur = false;
+            String message_erreur = "";
+            if (cb_lecteur.SelectedItem == null)
             {
-                bool erreur = false;
-                String message_erreur = "";
-                if (cb_lecteur.SelectedItem == null)
-                {
-                    erreur = true;
-                    message_erreur += "\n Aucun lecteur selectionné";
-                }
-
-                if (cb_isbn.SelectedItem == null)
-                {
-                    erreur = true;
-                    message_erreur += "\n Aucun Livre selectionné";
-                }
-
-                if (erreur)
-                {
-                    MessageBox.Show(message_erreur);
-                }
-                else
-                {
-                    try
-                    {
-                        byte[] imageBytes_lecteur = ImageToByteArray(p_image_lecteur.Image);
-                        byte[] imageBytes_livre = ImageToByteArray(p_image_livre.Image);
-
-                        DBConnector connexion = new DBConnector();
-                        MySqlCommand cmd = new MySqlCommand();
-                        cmd.Connection = connexion.Connection;
-
-                        string[] mon_isbn = cb_isbn.Text.Split(' ');
-                        String isbn = mon_isbn[0];
-                        MessageBox.Show("jai capturé isbn: " + isbn);
-
-                        if (quantite(isbn) == 0)
-                        {
-                            MessageBox.Show("Ce livre n'est pas disponible en empunt");
-                        }
-                        else
-                        {
-
-
-
-                            // Insertion d'une nouvelle personne
-                            String requete = "INSERT INTO borrowed(id_lecteur,id_livre,date_emprunt,date_retour)" +
-                                " VALUES(@id_lecteur, @id_livre, @date_emprunt, @date_retour)";
-                            cmd.CommandText = requete;
-
-                            cmd.Parameters.AddWithValue("@id_lecteur", cb_lecteur.Text);
-                            cmd.Parameters.AddWithValue("@id_livre", cb_isbn.Text);
-                            cmd.Parameters.AddWithValue("@date_emprunt", t_date_deb.Value);
-                            cmd.Parameters.AddWithValue("@date_retour", t_date_fin.Value);
-
-                            connexion.OpenConnection();
-                            cmd.ExecuteNonQuery();
-                            connexion.CloseConnection();
-
-
-                            chargement_du_dataview();
-
-                            //    id_masque.Text = "";
-
-                            update_quantite(isbn, false);
-                            MessageBox.Show("Modification Effectuée.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Une erreur s'est produite lors de l'opération : " + ex.Message);
-                    }
-                }
+                erreur = true;
+                message_erreur += "\n Aucun lecteur sélectionné";
             }
 
+            if (cb_isbn.SelectedItem == null)
+            {
+                erreur = true;
+                message_erreur += "\n Aucun Livre sélectionné";
+            }
+
+            if (erreur)
+            {
+                MessageBox.Show(message_erreur);
+            }
+            else
+            {
+                try
+                {
+                    byte[] imageBytes_lecteur = ImageToByteArray(p_image_lecteur.Image);
+                    byte[] imageBytes_livre = ImageToByteArray(p_image_livre.Image);
+
+                    DBConnector connexion = new DBConnector();
+                    MySqlCommand cmd = new MySqlCommand();
+                    cmd.Connection = connexion.Connection;
+
+                    string[] mon_isbn = cb_isbn.Text.Split(' ');
+                    String isbn = mon_isbn[0];
+         
+
+                    // Vérifier si le lecteur a déjà un emprunt en cours
+                    if (lecteurAEmpruntEncours(cb_lecteur.Text))
+                    {
+                        MessageBox.Show("Ce lecteur a un emprunt en cours.");
+                    }
+                    else
+                    {
+                        // Insertion d'une nouvelle personne
+                        String requete = "INSERT INTO borrowed(id_lecteur,id_livre,date_emprunt,date_retour)" +
+                            " VALUES(@id_lecteur, @id_livre, @date_emprunt, @date_retour)";
+                        cmd.CommandText = requete;
+
+                        cmd.Parameters.AddWithValue("@id_lecteur", cb_lecteur.Text);
+                        cmd.Parameters.AddWithValue("@id_livre", cb_isbn.Text);
+                        cmd.Parameters.AddWithValue("@date_emprunt", t_date_deb.Value);
+                        cmd.Parameters.AddWithValue("@date_retour", t_date_fin.Value);
+
+                        connexion.OpenConnection();
+                        cmd.ExecuteNonQuery();
+                        connexion.CloseConnection();
+
+                        chargement_du_dataview();
+
+                        //    id_masque.Text = "";
+
+                        update_quantite(isbn, false);
+                        Form1 f = new Form1();
+                        refrech_counting refrech = new refrech_counting(f);
+                        MessageBox.Show("Prêt  Effectué avec succès.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Une erreur s'est produite lors de l'opération : " + ex.Message);
+                }
+            }
         }
+
+        // Méthode pour vérifier si le lecteur a déjà un emprunt en cours
+        private bool lecteurAEmpruntEncours(string id_lecteur)
+        {
+            bool empruntEncours = false;
+
+            try
+            {
+                DBConnector connexion = new DBConnector();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = connexion.Connection;
+
+                // Requête pour vérifier si le lecteur a un emprunt en cours
+                String query = "SELECT COUNT(*) FROM borrowed WHERE id_lecteur = @id_lecteur";
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@id_lecteur", id_lecteur);
+
+                connexion.OpenConnection();
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                connexion.CloseConnection();
+
+                if (count > 0)
+                {
+                    empruntEncours = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produite lors de la vérification des emprunts du lecteur : " + ex.Message);
+            }
+
+            return empruntEncours;
+        }
+
         private byte[] ImageToByteArray(Image image)
         {
             using (MemoryStream ms = new MemoryStream())
@@ -452,6 +482,19 @@ namespace GestionBibliotheque
 
             String query = "SELECT id_lecteur, id_livre,date_emprunt,date_retour FROM borrowed";
             connexion.Select(query, guna2DataGridView1);
+
+        }
+
+        public void chargement_du_dataview_history()
+        {
+
+            DBConnector connexion = new DBConnector();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = connexion.Connection;
+
+            String query = "SELECT id_lecteur, id_livre,date_emprunt,date_retour FROM history";
+            connexion.Select(query, guna2DataGridView2);
+
         }
 
 
@@ -468,7 +511,7 @@ namespace GestionBibliotheque
                 cmd.Connection = connexion.Connection;
 
                 // Définition de la requête SQL avec un paramètre
-                string query = "SELECT quantite FROM books WHERE isbn = @isbn";
+                string query = "SELECT stock FROM books WHERE isbn = @isbn";
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@isbn", isbn);
 
@@ -500,7 +543,7 @@ namespace GestionBibliotheque
 
         public void update_quantite(String isbn, bool increment)
         {
-            int qt = quantite(isbn);
+            int qt = quantite(isbn); // je recupere de la quantité en stock du livre qui a l'isbn passé en parametre de la fonction 
 
             if (increment == true)
             {
@@ -519,9 +562,9 @@ namespace GestionBibliotheque
                 cmd.Connection = connexion.Connection;
 
                 // Définition de la requête SQL avec des paramètres
-                String query = "UPDATE books SET quantite = @quantite WHERE isbn = @isbn";
+                String query = "UPDATE books SET stock = @stock WHERE isbn = @isbn";
                 cmd.CommandText = query;
-                cmd.Parameters.AddWithValue("@quantite", qt);
+                cmd.Parameters.AddWithValue("@stock", qt);
                 cmd.Parameters.AddWithValue("@isbn", isbn);
 
                 // Ouverture de la connexion à la base de données
@@ -533,14 +576,7 @@ namespace GestionBibliotheque
                 // Fermeture de la connexion à la base de données
                 connexion.CloseConnection();
 
-                if (rowsAffected > 0)
-                {
-                    MessageBox.Show("Quantité mise à jour avec succès.");
-                }
-                else
-                {
-                    MessageBox.Show("Aucune ligne n'a été mise à jour.");
-                }
+               
             }
             catch (Exception ex)
             {
@@ -548,5 +584,146 @@ namespace GestionBibliotheque
             }
         }
 
+        private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                try
+                {
+                    int id_lecteur = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["id_lecteur"].Value);
+                    int isbn = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["id_livre"].Value);
+
+                    id_lecteur_masque.Text = id_lecteur.ToString();
+                    isbn_masque.Text = isbn.ToString();
+                    DBConnector con = new DBConnector();
+
+                    // Ouvrir manuellement la connexion à la base de données
+                    if (con.OpenConnection())
+                    {
+                        // Récupérer les informations du lecteur
+                        MySqlCommand cmdLecteur = new MySqlCommand();
+                        cmdLecteur.CommandText = "SELECT photo, nom, prenom FROM readers WHERE id = @id_lecteur";
+                        cmdLecteur.Parameters.AddWithValue("@id_lecteur", id_lecteur);
+                        cmdLecteur.Connection = con.Connection;
+
+                        MySqlDataAdapter DALecteur = new MySqlDataAdapter(cmdLecteur);
+                        DataSet DSLecteur = new DataSet();
+                        DALecteur.Fill(DSLecteur);
+
+                        if (DSLecteur.Tables[0].Rows.Count > 0)
+                        {
+                            DataRow rowLecteur = DSLecteur.Tables[0].Rows[0];
+                            byte[] imageBytesLecteur = (byte[])rowLecteur["photo"];
+                            MemoryStream msLecteur = new MemoryStream(imageBytesLecteur);
+                            image_preteur.Image = new Bitmap(msLecteur);
+                            nom_preteur.Text = rowLecteur["nom"].ToString();
+                            prenom_preteur.Text = rowLecteur["prenom"].ToString();
+                        }
+
+                        // Récupérer les informations du livre
+                        MySqlCommand cmdLivre = new MySqlCommand();
+                        cmdLivre.CommandText = "SELECT couverture FROM books WHERE isbn = @id_livre";
+                        cmdLivre.Parameters.AddWithValue("@id_livre", isbn);
+                        cmdLivre.Connection = con.Connection;
+
+                        MySqlDataAdapter DALivre = new MySqlDataAdapter(cmdLivre);
+                        DataSet DSLivre = new DataSet();
+                        DALivre.Fill(DSLivre);
+
+                        if (DSLivre.Tables[0].Rows.Count > 0)
+                        {
+                            DataRow rowLivre = DSLivre.Tables[0].Rows[0];
+                            byte[] imageBytesLivre = (byte[])rowLivre["couverture"];
+                            MemoryStream msLivre = new MemoryStream(imageBytesLivre);
+                            image_livre.Image = new Bitmap(msLivre);
+                        }
+
+                        // Fermer manuellement la connexion à la base de données
+                        con.CloseConnection();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Une erreur s'est produite : " + ex.Message);
+                }
+            }
+        }
+
+        private void btn_rendre_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id_lecteur = Convert.ToInt32(id_lecteur_masque.Text);
+                String isbn= isbn_masque.Text;
+
+                DBConnector con = new DBConnector();
+
+                // Ouvrir manuellement la connexion à la base de données
+                if (con.OpenConnection())
+                {
+                    // Récupérer les informations de l'emprunt
+                    MySqlCommand cmdSelect = new MySqlCommand();
+                    cmdSelect.CommandText = "SELECT * FROM borrowed WHERE id_lecteur = @id_lecteur AND id_livre = @id_livre";
+                    cmdSelect.Parameters.AddWithValue("@id_lecteur", id_lecteur);
+                    cmdSelect.Parameters.AddWithValue("@id_livre", isbn);
+                    cmdSelect.Connection = con.Connection;
+
+                    MySqlDataReader reader = cmdSelect.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        // Récupérer les valeurs de l'emprunt
+                        int id_emprunt = reader.GetInt32("id");
+                        DateTime date_emprunt = reader.GetDateTime("date_emprunt");
+                        DateTime date_retour = reader.GetDateTime("date_retour");
+
+                        // Fermer le reader
+                        reader.Close();
+
+                        // Insérer l'emprunt dans la table history
+                        MySqlCommand cmdInsert = new MySqlCommand();
+                        cmdInsert.CommandText = "INSERT INTO history(id_lecteur, id_livre, date_emprunt, date_retour) VALUES(@id_lecteur, @id_livre, @date_emprunt, @date_retour)";
+                        cmdInsert.Parameters.AddWithValue("@id_lecteur", id_lecteur);
+                        cmdInsert.Parameters.AddWithValue("@id_livre", isbn);
+                        cmdInsert.Parameters.AddWithValue("@date_emprunt", date_emprunt);
+                        cmdInsert.Parameters.AddWithValue("@date_retour", date_retour);
+                        cmdInsert.Connection = con.Connection;
+                        cmdInsert.ExecuteNonQuery();
+
+                        // Supprimer l'emprunt de la table borrowed
+                        MySqlCommand cmdDelete = new MySqlCommand();
+                        cmdDelete.CommandText = "DELETE FROM borrowed WHERE id = @id_emprunt";
+                        cmdDelete.Parameters.AddWithValue("@id_emprunt", id_emprunt);
+                        cmdDelete.Connection = con.Connection;
+                        cmdDelete.ExecuteNonQuery();
+
+                        MessageBox.Show("L'emprunt a été rendu avec succès.");
+                        update_quantite(isbn,true);
+
+                        Form1 f = new Form1();
+                        refrech_counting refrech = new refrech_counting(f);
+                        chargement_du_dataview();
+                        chargement_du_dataview_history();
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Aucun emprunt trouvé pour ce lecteur et cet ISBN.");
+                    }
+
+                    // Fermer manuellement la connexion à la base de données
+                    con.CloseConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur s'est produite lors du rendu de l'emprunt : " + ex.Message);
+            }
+        }
+
+        private void btn_search_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

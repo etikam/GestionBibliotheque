@@ -100,6 +100,13 @@ namespace GestionBibliotheque
         {
           
         }
+
+        private void lb_reinitialiser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            user_recover recover = new user_recover();
+            this.Hide();
+            recover.Show();
+        }
     }
     }
 

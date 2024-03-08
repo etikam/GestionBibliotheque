@@ -47,9 +47,10 @@
             this.guna2PictureBox1.FillColor = System.Drawing.Color.Black;
             this.guna2PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox1.Image")));
             this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(-15, -1);
+            this.guna2PictureBox1.Location = new System.Drawing.Point(-20, -1);
+            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(387, 297);
+            this.guna2PictureBox1.Size = new System.Drawing.Size(516, 366);
             this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.guna2PictureBox1.TabIndex = 0;
             this.guna2PictureBox1.TabStop = false;
@@ -57,11 +58,12 @@
             // lb_authentification
             // 
             this.lb_authentification.AutoSize = true;
-            this.lb_authentification.Font = new System.Drawing.Font("Unispace", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_authentification.Font = new System.Drawing.Font("Microsoft Sans Serif", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_authentification.ForeColor = System.Drawing.Color.Blue;
-            this.lb_authentification.Location = new System.Drawing.Point(380, 3);
+            this.lb_authentification.Location = new System.Drawing.Point(507, 4);
+            this.lb_authentification.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lb_authentification.Name = "lb_authentification";
-            this.lb_authentification.Size = new System.Drawing.Size(337, 40);
+            this.lb_authentification.Size = new System.Drawing.Size(308, 48);
             this.lb_authentification.TabIndex = 1;
             this.lb_authentification.Text = "Authentification";
             // 
@@ -69,9 +71,10 @@
             // 
             this.lb_login.AutoSize = true;
             this.lb_login.Font = new System.Drawing.Font("Mongolian Baiti", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_login.Location = new System.Drawing.Point(393, 70);
+            this.lb_login.Location = new System.Drawing.Point(524, 86);
+            this.lb_login.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lb_login.Name = "lb_login";
-            this.lb_login.Size = new System.Drawing.Size(76, 21);
+            this.lb_login.Size = new System.Drawing.Size(93, 26);
             this.lb_login.TabIndex = 2;
             this.lb_login.Text = "Login :";
             this.lb_login.Click += new System.EventHandler(this.label2_Click);
@@ -80,9 +83,10 @@
             // 
             this.lb_password.AutoSize = true;
             this.lb_password.Font = new System.Drawing.Font("Mongolian Baiti", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_password.Location = new System.Drawing.Point(393, 119);
+            this.lb_password.Location = new System.Drawing.Point(524, 146);
+            this.lb_password.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lb_password.Name = "lb_password";
-            this.lb_password.Size = new System.Drawing.Size(108, 21);
+            this.lb_password.Size = new System.Drawing.Size(132, 26);
             this.lb_password.TabIndex = 3;
             this.lb_password.Text = "Password :";
             this.lb_password.Click += new System.EventHandler(this.label3_Click);
@@ -102,13 +106,13 @@
             this.tb_login.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.tb_login.ForeColor = System.Drawing.Color.Black;
             this.tb_login.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tb_login.Location = new System.Drawing.Point(498, 55);
-            this.tb_login.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_login.Location = new System.Drawing.Point(664, 68);
+            this.tb_login.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.tb_login.Name = "tb_login";
             this.tb_login.PasswordChar = '\0';
             this.tb_login.PlaceholderText = "";
             this.tb_login.SelectedText = "";
-            this.tb_login.Size = new System.Drawing.Size(234, 38);
+            this.tb_login.Size = new System.Drawing.Size(312, 47);
             this.tb_login.TabIndex = 4;
             // 
             // tb_password
@@ -125,13 +129,13 @@
             this.tb_password.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.tb_password.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.tb_password.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tb_password.Location = new System.Drawing.Point(498, 104);
-            this.tb_password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_password.Location = new System.Drawing.Point(664, 128);
+            this.tb_password.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.tb_password.Name = "tb_password";
             this.tb_password.PasswordChar = '*';
             this.tb_password.PlaceholderText = "";
             this.tb_password.SelectedText = "";
-            this.tb_password.Size = new System.Drawing.Size(234, 38);
+            this.tb_password.Size = new System.Drawing.Size(312, 47);
             this.tb_password.TabIndex = 5;
             // 
             // btn_connexion
@@ -143,9 +147,10 @@
             this.btn_connexion.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btn_connexion.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15F);
             this.btn_connexion.ForeColor = System.Drawing.Color.White;
-            this.btn_connexion.Location = new System.Drawing.Point(533, 149);
+            this.btn_connexion.Location = new System.Drawing.Point(711, 183);
+            this.btn_connexion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_connexion.Name = "btn_connexion";
-            this.btn_connexion.Size = new System.Drawing.Size(157, 45);
+            this.btn_connexion.Size = new System.Drawing.Size(209, 55);
             this.btn_connexion.TabIndex = 6;
             this.btn_connexion.Text = "Connexion";
             this.btn_connexion.Click += new System.EventHandler(this.btn_connexion_Click);
@@ -154,21 +159,24 @@
             // 
             this.lb_reinitialiser.AutoSize = true;
             this.lb_reinitialiser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_reinitialiser.Location = new System.Drawing.Point(569, 213);
+            this.lb_reinitialiser.Location = new System.Drawing.Point(759, 262);
+            this.lb_reinitialiser.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lb_reinitialiser.Name = "lb_reinitialiser";
-            this.lb_reinitialiser.Size = new System.Drawing.Size(90, 20);
+            this.lb_reinitialiser.Size = new System.Drawing.Size(110, 25);
             this.lb_reinitialiser.TabIndex = 7;
             this.lb_reinitialiser.TabStop = true;
             this.lb_reinitialiser.Text = "Réinitialiser";
+            this.lb_reinitialiser.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lb_reinitialiser_LinkClicked);
             // 
             // lb_auth_error
             // 
             this.lb_auth_error.AutoSize = true;
             this.lb_auth_error.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_auth_error.ForeColor = System.Drawing.Color.Red;
-            this.lb_auth_error.Location = new System.Drawing.Point(397, 255);
+            this.lb_auth_error.Location = new System.Drawing.Point(537, 324);
+            this.lb_auth_error.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lb_auth_error.Name = "lb_auth_error";
-            this.lb_auth_error.Size = new System.Drawing.Size(335, 17);
+            this.lb_auth_error.Size = new System.Drawing.Size(395, 20);
             this.lb_auth_error.TabIndex = 8;
             this.lb_auth_error.Text = "Login ou mot de passe incorrect, Veuillez reprendre";
             this.lb_auth_error.Visible = false;
@@ -176,10 +184,10 @@
             // 
             // F_Connexion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(740, 287);
+            this.ClientSize = new System.Drawing.Size(987, 353);
             this.Controls.Add(this.lb_auth_error);
             this.Controls.Add(this.lb_reinitialiser);
             this.Controls.Add(this.btn_connexion);
@@ -189,6 +197,7 @@
             this.Controls.Add(this.lb_login);
             this.Controls.Add(this.lb_authentification);
             this.Controls.Add(this.guna2PictureBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "F_Connexion";
